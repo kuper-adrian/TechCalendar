@@ -1,0 +1,30 @@
+﻿@model System.Collections.Generic.ICollection<TechCalendar.Client.Event>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="text-center">
+    <h1 class="display-4">Events</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @foreach (var e in Model)
+    {
+        <div>
+            <strong>Name: </strong>@e.Name
+        </div>
+        <div>
+            <strong>Description: </strong>@e.Description
+        </div>
+        <div>
+            <strong>Start: </strong>@e.StartDate.ToString()
+        </div>
+        <div>
+            <strong>End: </strong>@e.EndDate.ToString()
+        </div>
+    }
+</div>
