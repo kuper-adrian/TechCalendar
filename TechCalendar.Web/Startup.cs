@@ -31,7 +31,6 @@ namespace TechCalendar.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -49,7 +48,11 @@ namespace TechCalendar.Web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            if (!env.IsDocker())
+            {
+                app.UseHttpsRedirection();
+            }
+
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
@@ -59,6 +62,15 @@ namespace TechCalendar.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+    }
+
+    static class HostingEnvironmentExtensions
+    {
+        public static bool IsDocker(this IHostingEnvironment env)
+        {
+            var envValue = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER");
+            return envValue == "1" || envValue == "true";
         }
     }
 }

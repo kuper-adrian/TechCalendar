@@ -6,14 +6,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TechCalendar.Web.Models;
 using TechCalendar.Client;
+using Microsoft.Extensions.Configuration;
 
 namespace TechCalendar.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration _configuration;
+
+
+        public HomeController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public async Task<IActionResult> Index()
         {
-            var client = new EventClient("http://localhost:5000", new System.Net.Http.HttpClient());
+            var client = new EventClient(_configuration["ApiBaseUrl"], new System.Net.Http.HttpClient());
             var events = await client.GetEventsAsync(DateTime.Parse("2018-01-01"), DateTime.Parse("2019-12-30"));
             
             return View(events);

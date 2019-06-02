@@ -31,7 +31,7 @@ namespace TechCalendar.Api
 
             services.AddSwaggerDocument();
 
-            var connection = "Data Source=events.db";
+            var connection = "Data Source=Data/tech-calendar.db";
             services.AddDbContext<EventDbContext>(options => options.UseSqlite(connection));
         }
 
@@ -51,8 +51,21 @@ namespace TechCalendar.Api
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            if (!env.IsDocker())
+            {
+                app.UseHttpsRedirection();
+            }
+            
             app.UseMvc();
+        }
+    }
+
+    static class HostingEnvironmentExtensions
+    {
+        public static bool IsDocker(this IHostingEnvironment env)
+        {
+            var envValue = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER");
+            return envValue == "1" || envValue == "true";
         }
     }
 }

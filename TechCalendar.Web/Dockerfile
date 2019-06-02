@@ -11,7 +11,6 @@ RUN dotnet restore ./TechCalendar.Web/TechCalendar.Web.csproj
 COPY TechCalendar.Client/ ./TechCalendar.Client/
 COPY TechCalendar.Web/ ./TechCalendar.Web/
 RUN dotnet publish -c Release -o out ./TechCalendar.Web/TechCalendar.Web.csproj
-RUN ls
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine3.9

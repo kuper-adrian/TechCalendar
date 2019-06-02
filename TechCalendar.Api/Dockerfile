@@ -13,4 +13,8 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine3.9
 WORKDIR /app
 COPY --from=build-env /app/out .
+
+RUN mkdir /Data
+VOLUME /Data
+
 ENTRYPOINT ["dotnet", "TechCalendar.Api.dll"]

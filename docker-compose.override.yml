@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+
+  api:
+    volumes:
+      - ./TechCalendar.Api/Data/:/Data/
+
+  nginx:
+    volumes:
+      - ./nginx/dev-certs/:/etc/letsencrypt/live/tech-calendar.com/
+    ports:
+      - 50080:80
+      - 50443:443
