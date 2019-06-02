@@ -14,7 +14,7 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine3.9
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-RUN mkdir /Data
-VOLUME /Data
+RUN mkdir /app/Data
+VOLUME /app/Data
 
 ENTRYPOINT ["dotnet", "TechCalendar.Api.dll"]
