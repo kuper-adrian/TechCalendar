@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  api:
+    image: tech-calendar-api:latest
+    build:
+      context: .
+      dockerfile: TechCalendar.Api/Dockerfile
+  
+  web:
+    image: tech-calendar-web:latest
+    build:
+      context: .
+      dockerfile: TechCalendar.Web/Dockerfile
