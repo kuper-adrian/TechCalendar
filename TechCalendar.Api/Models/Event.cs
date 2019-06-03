@@ -8,9 +8,12 @@ namespace TechCalendar.Api.Models
     public class Event
     {
         public int EventId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }    
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public string Title { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public string Url { get; set; }
+        public string BackgroundColor { get; set; }
+        public string BorderColor { get; set; }
+        public string TextColor { get; set; }
     }
 }

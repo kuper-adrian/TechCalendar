@@ -26,7 +26,7 @@ namespace TechCalendar.Api.Controllers
         {
             return _context
                 .Events
-                .Where(e => e.StartDate > start && e.EndDate < end)
+                .Where(e => e.Start > start && e.End < end)
                 .ToList();
         }
 

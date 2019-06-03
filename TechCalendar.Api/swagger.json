@@ -82,27 +82,36 @@
       "additionalProperties": false,
       "required": [
         "eventId",
-        "startDate",
-        "endDate"
+        "start",
+        "end"
       ],
       "properties": {
         "eventId": {
           "type": "integer",
           "format": "int32"
         },
-        "name": {
+        "title": {
           "type": "string"
         },
-        "description": {
-          "type": "string"
-        },
-        "startDate": {
+        "start": {
           "type": "string",
           "format": "date-time"
         },
-        "endDate": {
+        "end": {
           "type": "string",
           "format": "date-time"
+        },
+        "url": {
+          "type": "string"
+        },
+        "backgroundColor": {
+          "type": "string"
+        },
+        "borderColor": {
+          "type": "string"
+        },
+        "textColor": {
+          "type": "string"
         }
       }
     }

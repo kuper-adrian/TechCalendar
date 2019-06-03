@@ -9,7 +9,7 @@ using TechCalendar.Api.Persistence;
 namespace TechCalendar.Api.Migrations
 {
     [DbContext(typeof(EventDbContext))]
-    [Migration("20190601151435_InitialCreate")]
+    [Migration("20190603185452_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,13 +23,19 @@ namespace TechCalendar.Api.Migrations
                     b.Property<int>("EventId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<string>("BackgroundColor");
 
-                    b.Property<DateTime>("EndDate");
+                    b.Property<string>("BorderColor");
 
-                    b.Property<string>("Name");
+                    b.Property<DateTime>("End");
 
-                    b.Property<DateTime>("StartDate");
+                    b.Property<DateTime>("Start");
+
+                    b.Property<string>("TextColor");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("Url");
 
                     b.HasKey("EventId");
 
