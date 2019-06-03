@@ -5,26 +5,21 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-<div class="text-center">
     <h1 class="display-4">Events</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     @foreach (var e in Model)
     {
         <div>
-            <strong>Name: </strong>@e.Name
+            <strong>Name: </strong>@e.Title
         </div>
         <div>
-            <strong>Description: </strong>@e.Description
+            <strong>Stream: </strong>@e.Url
         </div>
         <div>
-            <strong>Start: </strong>@e.StartDate.ToString()
+            <strong>Start: </strong>@e.Start.ToString()
         </div>
         <div>
-            <strong>End: </strong>@e.EndDate.ToString()
+            <strong>End: </strong>@e.End.ToString()
         </div>
+        <hr/>
     }
 </div>
