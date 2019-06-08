@@ -28,6 +28,15 @@ namespace TechCalendar.Web.Controllers
             return View(events);
         }
 
+        [HttpPost]
+        public async Task<ObjectResult> GetEvents(DateTime start, DateTime end)
+        {
+            var client = new EventClient(_configuration["ApiBaseUrl"], new System.Net.Http.HttpClient());
+            var events = await client.GetEventsAsync(start, end);
+
+            return Ok(events);
+        }
+
         public IActionResult Privacy()
         {
             return View();

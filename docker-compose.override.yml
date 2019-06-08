@@ -8,7 +8,7 @@ services:
 
   nginx:
     volumes:
-      - ./nginx/dev-certs/:/etc/letsencrypt/live/tech-calendar.com/
+      - ./nginx/dev-certs/:/etc/letsencrypt/live/stream-schedule.io/
     ports:
       - 50080:80
       - 50443:443

@@ -1,25 +1,61 @@
 ﻿@model System.Collections.Generic.ICollection<TechCalendar.Client.Event>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "stream-schedule.io";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Events</h1>
-    @foreach (var e in Model)
-    {
-        <div>
-            <strong>Name: </strong>@e.Title
+<div class="row">
+    <div class="col-md-12">
+        <div class="card bg-light" style="margin-bottom: 15px;">
+            <div class="card-body">
+               Calendar for tech and gaming streams/events
+            </div>
         </div>
-        <div>
-            <strong>Stream: </strong>@e.Url
-        </div>
-        <div>
-            <strong>Start: </strong>@e.Start.ToString()
-        </div>
-        <div>
-            <strong>End: </strong>@e.End.ToString()
-        </div>
-        <hr/>
-    }
+    </div>
 </div>
+
+<div id="calendar"></div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/lib/fullcalendar/core/main.min.css" />
+    <link rel="stylesheet" href="~/lib/fullcalendar/daygrid/main.min.css" />
+    <link rel="stylesheet" href="~/lib/fullcalendar/timegrid/main.min.css" />
+}
+
+@section Scripts {
+    <script src="~/lib/fullcalendar/core/main.min.js"></script>
+    <script src="~/lib/fullcalendar/daygrid/main.min.js"></script>
+    <script src="~/lib/fullcalendar/timegrid/main.min.js"></script>
+
+    <script>
+        const events = @Html.Raw(Json.Serialize(Model));
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'dayGrid', 'timeGrid' ],
+                defaultView: 'dayGridMonth',
+                header: {
+                    left:   'title',
+                    center: '',
+                    right: 'today dayGridMonth,timeGridWeek prev,next',
+                },
+                events: function (info, successCallback, failureCallback) {
+                    $.post(
+                        "/Home/GetEvents", 
+                        {
+                            start: info.startStr,
+                            end: info.endStr
+                        },
+                        function (data, status) {
+                            successCallback(data);
+                        });
+                },
+            });
+
+            calendar.render();
+            //calendar.setOption('locale', 'en');
+        });
+    </script>
+}
