@@ -8,36 +8,37 @@ using TechCalendar.Web.Models;
 using Microsoft.Extensions.Configuration;
 using TechCalendar.Web.Persistence;
 using Microsoft.EntityFrameworkCore;
+using TechCalendar.Web.Util;
 
 namespace TechCalendar.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly EventDbContext _context;
-
+        private readonly Cache<(DateTime, DateTime), List<Event>> _eventsCache;
 
         public HomeController(EventDbContext configuration)
         {
             _context = configuration;
+            _eventsCache = new Cache<(DateTime, DateTime), List<Event>>();
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var events = await _context
-                .Events
-                .Where(e => e.Start >= DateTime.Parse("2018-01-01") && e.End <= DateTime.Parse("2019-12-30"))
-                .ToListAsync();
-            
-            return View(events);
+        public IActionResult Index()
+        {            
+            return View();
         }
 
         [HttpPost]
         public async Task<ObjectResult> GetEvents(DateTime start, DateTime end)
         {
-            var events = await _context
-                .Events
-                .Where(e => e.Start >= DateTime.Parse("2018-01-01") && e.End <= DateTime.Parse("2019-12-30"))
-                .ToListAsync();
+            var events = _eventsCache.Get((start, end));
+            if (events == null)
+            {
+                events = await _context
+                    .Events
+                    .Where(e => e.Start >= start && e.End <= end)
+                    .ToListAsync();
+            }
 
             return Ok(events);
         }
