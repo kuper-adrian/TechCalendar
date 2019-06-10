@@ -4,7 +4,7 @@ services:
   
   web:
     restart: always
-    image: stream-schedule-web:latest
+    image: registry.gitlab.com/kuper-adrian/stream-schedule.io/web:latest
     build:
       context: .
       dockerfile: TechCalendar.Web/Dockerfile
@@ -15,7 +15,7 @@ services:
   
   nginx:
     restart: always
-    image: stream-schedule-nginx:latest
+    image: registry.gitlab.com/kuper-adrian/stream-schedule.io/nginx:latest
     build:
       context: .
       dockerfile: nginx/Dockerfile
