@@ -1,6 +1,4 @@
-﻿@model System.Collections.Generic.ICollection<TechCalendar.Web.Models.Event>
-
-@{
+﻿@{
     ViewData["Title"] = "stream-schedule.io";
 }
 
@@ -36,6 +34,7 @@
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: [ 'dayGrid', 'timeGrid' ],
                 defaultView: 'dayGridMonth',
+                nowIndicator: true,
                 header: {
                     left:   'title',
                     center: '',
