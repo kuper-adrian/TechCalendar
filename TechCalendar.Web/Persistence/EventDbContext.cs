@@ -1,8 +1,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
-using TechCalendar.Api.Models;
+using TechCalendar.Web.Models;
 
-namespace TechCalendar.Api.Persistence
+namespace TechCalendar.Web.Persistence
 {
     public class EventDbContext : DbContext
     {

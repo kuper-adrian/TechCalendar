@@ -1,32 +1,22 @@
 version: '3.4'
 
 services:
-  api:
-    restart: always
-    image: tech-calendar-api:latest
-    build:
-      context: .
-      dockerfile: TechCalendar.Api/Dockerfile
-    container_name: tech-calendar-api
-    environment:
-      DOTNET_RUNNING_IN_CONTAINER: "true"
-      ASPNETCORE_URLS: http://+:5000
   
   web:
     restart: always
-    image: tech-calendar-web:latest
+    image: stream-schedule-web:latest
     build:
       context: .
       dockerfile: TechCalendar.Web/Dockerfile
-    container_name: tech-calendar-web
+    container_name: stream-schedule-web
     environment:
       DOTNET_RUNNING_IN_CONTAINER: "true"
       ASPNETCORE_URLS: http://+:6000
   
   nginx:
     restart: always
-    image: tech-calendar-nginx:latest
+    image: stream-schedule-nginx:latest
     build:
       context: .
       dockerfile: nginx/Dockerfile
-    container_name: tech-calendar-nginx
+    container_name: stream-schedule-nginx

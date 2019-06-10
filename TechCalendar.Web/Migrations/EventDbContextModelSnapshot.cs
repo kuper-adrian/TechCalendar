@@ -2,17 +2,15 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TechCalendar.Api.Persistence;
+using TechCalendar.Web.Persistence;
 
 namespace TechCalendar.Api.Migrations
 {
     [DbContext(typeof(EventDbContext))]
-    [Migration("20190603185452_InitialCreate")]
-    partial class InitialCreate
+    partial class EventDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

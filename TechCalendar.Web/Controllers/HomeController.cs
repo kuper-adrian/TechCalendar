@@ -5,25 +5,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TechCalendar.Web.Models;
-using TechCalendar.Client;
 using Microsoft.Extensions.Configuration;
+using TechCalendar.Web.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace TechCalendar.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IConfiguration _configuration;
+        private readonly EventDbContext _context;
 
 
-        public HomeController(IConfiguration configuration)
+        public HomeController(EventDbContext configuration)
         {
-            _configuration = configuration;
+            _context = configuration;
         }
 
         public async Task<IActionResult> Index()
         {
-            var client = new EventClient(_configuration["ApiBaseUrl"], new System.Net.Http.HttpClient());
-            var events = await client.GetEventsAsync(DateTime.Parse("2018-01-01"), DateTime.Parse("2019-12-30"));
+            var events = await _context
+                .Events
+                .Where(e => e.Start >= DateTime.Parse("2018-01-01") && e.End <= DateTime.Parse("2019-12-30"))
+                .ToListAsync();
             
             return View(events);
         }
@@ -31,8 +34,10 @@ namespace TechCalendar.Web.Controllers
         [HttpPost]
         public async Task<ObjectResult> GetEvents(DateTime start, DateTime end)
         {
-            var client = new EventClient(_configuration["ApiBaseUrl"], new System.Net.Http.HttpClient());
-            var events = await client.GetEventsAsync(start, end);
+            var events = await _context
+                .Events
+                .Where(e => e.Start >= DateTime.Parse("2018-01-01") && e.End <= DateTime.Parse("2019-12-30"))
+                .ToListAsync();
 
             return Ok(events);
         }

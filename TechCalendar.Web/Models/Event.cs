@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TechCalendar.Api.Models
+namespace TechCalendar.Web.Models
 {
     public class Event
     {

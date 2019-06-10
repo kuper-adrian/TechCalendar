@@ -2,9 +2,9 @@ version: '3.4'
 
 services:
 
-  api:
+  web:
     volumes:
-      - ./TechCalendar.Api/Data/:/app/Data/
+      - ./TechCalendar.Web/Data/:/app/Data/
 
   nginx:
     volumes:
