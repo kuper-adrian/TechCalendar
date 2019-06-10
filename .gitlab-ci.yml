@@ -8,12 +8,13 @@ stages:
   - test
   - push
 
+cache:
+  paths:
+    - TechCalendar.Web/bin/Release/
+
 build_job:
   stage: build
   when: always
-  cache:
-    paths:
-      - TechCalendar.Web/bin/Release/
   script:
     - dotnet restore
     - dotnet publish -c Release
