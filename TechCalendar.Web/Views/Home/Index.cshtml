@@ -41,20 +41,26 @@
                     right: 'today dayGridMonth,timeGridWeek prev,next',
                 },
                 events: function (info, successCallback, failureCallback) {
-                    $.post(
-                        "/Home/GetEvents", 
-                        {
+                    $.ajax({
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        type: 'POST',
+                        url: '/Home/GetEvents',
+                        data: JSON.stringify({
                             start: info.startStr,
                             end: info.endStr
-                        },
-                        function (data, status) {
+                        }),
+                        dataType: 'json',
+                        sucess: function (data, status) {
                             successCallback(data);
-                        });
+                        }
+                    });
                 },
             });
 
             calendar.render();
-            //calendar.setOption('locale', 'en');
         });
     </script>
 }
