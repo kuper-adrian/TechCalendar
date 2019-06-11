@@ -7,6 +7,7 @@ namespace TechCalendar.Web.Util
 {
     public class Cache<TRequest, TCacheItemType>
     {
+        private object _cacheLock = new object();
         private long _ttl;
         private Dictionary<TRequest, CacheItem<TCacheItemType>> _cache;
 
@@ -24,20 +25,30 @@ namespace TechCalendar.Web.Util
             }
 
             var cacheItem = _cache[request];
-            var now = DateTime.Now;
 
-            if ((now - cacheItem.Creation).TotalMilliseconds > _ttl)
+            if ((DateTime.Now - cacheItem.Creation).TotalMilliseconds > _ttl)
             {
-                _cache[request] = null;
+                _cache.Remove(request);
                 return default(TCacheItemType);
             }
 
-            return _cache[request].Item;
+            return cacheItem.Item;
         }
 
         public void Put(TRequest request, TCacheItemType item)
         {
-            _cache[request] = new CacheItem<TCacheItemType>(item);
+            lock (_cacheLock)
+            {
+                _cache.Add(request, new CacheItem<TCacheItemType>(item));
+            }
+        }
+
+        private void Remove(TRequest request)
+        {
+            lock (_cacheLock)
+            {
+                _cache.Remove(request);
+            }
         }
     }
 

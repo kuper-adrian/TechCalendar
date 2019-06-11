@@ -9,18 +9,17 @@ using Microsoft.Extensions.Configuration;
 using TechCalendar.Web.Persistence;
 using Microsoft.EntityFrameworkCore;
 using TechCalendar.Web.Util;
+using TechCalendar.Web.Handler.Event;
 
 namespace TechCalendar.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly EventDbContext _context;
-        private readonly Cache<(DateTime, DateTime), List<Event>> _eventsCache;
 
-        public HomeController(EventDbContext configuration)
+        public HomeController(EventDbContext context)
         {
-            _context = configuration;
-            _eventsCache = new Cache<(DateTime, DateTime), List<Event>>();
+            _context = context;
         }
 
         public IActionResult Index()
@@ -29,16 +28,10 @@ namespace TechCalendar.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ObjectResult> GetEvents(DateTime start, DateTime end)
+        public async Task<ObjectResult> GetEvents([FromBody] GetEventsQuery query)
         {
-            var events = _eventsCache.Get((start, end));
-            if (events == null)
-            {
-                events = await _context
-                    .Events
-                    .Where(e => e.Start >= start && e.End <= end)
-                    .ToListAsync();
-            }
+            var handler = new GetEventsQueryHandler(_context);
+            var events = await handler.HandleAsync(query);
 
             return Ok(events);
         }
