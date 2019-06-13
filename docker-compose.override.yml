@@ -3,6 +3,9 @@ version: '3.4'
 services:
 
   web:
+    environment:
+      - Mailgun__Domain=TODO
+      - Mailgun__ApiKey=TODO
     volumes:
       - ./TechCalendar.Web/Data/:/app/Data/
 

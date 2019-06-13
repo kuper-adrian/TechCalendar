@@ -27,8 +27,8 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -36,6 +36,11 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <button class="btn btn-outline-light my-2 my-sm-0" type="button" data-toggle="modal" data-target="#submit-event-modal">
+                            Submit an event
+                        </button>
+                    </form>
                 </div>
             </div>
         </nav>
@@ -47,9 +52,62 @@
         </main>
     </div>
 
+    <!-- Submit a date modal -->
+    <form id="submit-event-form" action="/Home/SubmitEvent" method="post">
+        <div id="submit-event-modal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Submit an event</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="form-group row">
+                            <label for="submit-event-title" class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <input name="title" type="text" class="form-control" placeholder="Title" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="submit-event-start-date" class="col-sm-2 col-form-label">Start</label>
+                            <div class="col-sm-5">
+                                <input name="startDate" type="date" class="form-control" required>
+                            </div>
+                            <div class="col-sm-5">
+                                <input name="startTime" type="time" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="submit-event-end-date" class="col-sm-2 col-form-label">End</label>
+                            <div class="col-sm-5">
+                                <input name="endDate" type="date" class="form-control" required>
+                            </div>
+                            <div class="col-sm-5">
+                                <input name="endTime" type="time" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="submit-event-url" class="col-sm-2 col-form-label">Stream-URL</label>
+                            <div class="col-sm-10">
+                                <input name="streamUrl" type="url" class="form-control" placeholder="http://some-url.com" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2019 - stream-schedule.io - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2019 - stream-schedule.io - 1.1.0 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 
