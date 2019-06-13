@@ -16,10 +16,12 @@ namespace TechCalendar.Web.Controllers
     public class HomeController : Controller
     {
         private readonly EventDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public HomeController(EventDbContext context)
+        public HomeController(EventDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         public IActionResult Index()
@@ -34,6 +36,18 @@ namespace TechCalendar.Web.Controllers
             var events = await handler.HandleAsync(query);
 
             return Ok(events);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SubmitEvent([FromForm] EventSubmission submission)
+        {
+            var mailgunDomain = _configuration["Mailgun:Domain"];
+            var mailgunApiKey = _configuration["Mailgun:ApiKey"];
+
+            var handler = new EventSubmissionHandler(mailgunDomain, mailgunApiKey);
+            await handler.HandleAsync(submission);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Privacy()
