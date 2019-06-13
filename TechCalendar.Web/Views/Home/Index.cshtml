@@ -52,8 +52,11 @@
                             end: info.endStr
                         }),
                         dataType: 'json',
-                        sucess: function (data, status) {
+                        success: function (data, status) {
                             successCallback(data);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            failureCallback(errorThrown);
                         }
                     });
                 },
