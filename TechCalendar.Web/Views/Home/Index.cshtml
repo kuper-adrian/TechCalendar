@@ -2,6 +2,17 @@
     ViewData["Title"] = "stream-schedule.io";
 }
 
+@if (TempData["SubmitEvent"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">Thanks for submitting an event 👌️</h4>
+        We will check your submission and add it to the calendar asap!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
 <div class="row">
     <div class="col-md-12">
         <div class="card bg-light" style="margin-bottom: 15px;">
