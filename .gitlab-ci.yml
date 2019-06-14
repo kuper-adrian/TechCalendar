@@ -91,26 +91,28 @@ deploy:
   script:
     - >
       docker build 
-      -t $WEB_IMAGE_NAME:$CI_RUNNER_TAGS 
+      -t $WEB_IMAGE_NAME:$CI_COMMIT_TAG 
       -t $WEB_IMAGE_NAME:latest
       -f ./TechCalendar.Web/Dockerfile .
     - > 
       docker build 
-      -t $NGINX_IMAGE_NAME:$CI_RUNNER_TAGS 
+      -t $NGINX_IMAGE_NAME:$CI_COMMIT_TAG 
       -t $NGINX_IMAGE_NAME:latest 
       -f ./nginx/Dockerfile .
 
-    - docker push $WEB_IMAGE_NAME:$CI_COMMIT_SHA
+    - docker push $WEB_IMAGE_NAME:$CI_COMMIT_TAG
     - docker push $WEB_IMAGE_NAME:latest
-    - docker push $NGINX_IMAGE_NAME:$CI_COMMIT_SHA
+    - docker push $NGINX_IMAGE_NAME:$CI_COMMIT_TAG
     - docker push $NGINX_IMAGE_NAME:latest
 
-    # generate docker-compose.override.yml for prod
+    # generate docker-compose files for prod
+    - chmod +x generate-docker-compose-file.sh
     - chmod +x generate-override-file.sh
+    - ./generate-docker-compose-file.sh $CI_COMMIT_TAG > docker-compose.yml
     - ./generate-override-file.sh $GMAIL_ADDRESS $GMAIL_APP_PASSWORD > docker-compose.override.yml
 
     # ssh to host, login and pull the new docker image
-    - ssh root@$SERVER_IP "echo "$CI_REGISTRY_PASSWORD" | docker login --username $CI_REGISTRY_USER --password-stdin && docker pull $WEB_IMAGE_NAME:$CI_COMMIT_SHA && docker pull $NGINX_IMAGE_NAME:$CI_COMMIT_SHA"
+    - ssh root@$SERVER_IP "echo "$CI_REGISTRY_PASSWORD" | docker login --username $CI_REGISTRY_USER --password-stdin && docker pull $WEB_IMAGE_NAME:$CI_COMMIT_TAG && docker pull $NGINX_IMAGE_NAME:$CI_COMMIT_TAG"
     
     # copy the docker-compose files to host
     - scp ./docker-compose.yml root@$SERVER_IP:/stream-schedule/
