@@ -112,7 +112,7 @@ deploy:
     - ./generate-override-file.sh $GMAIL_ADDRESS $GMAIL_APP_PASSWORD > docker-compose.override.yml
 
     # ssh to host, login and pull the new docker image
-    - ssh root@$SERVER_IP "echo "$CI_REGISTRY_PASSWORD" | docker login --username $CI_REGISTRY_USER --password-stdin && docker pull $WEB_IMAGE_NAME:$CI_COMMIT_TAG && docker pull $NGINX_IMAGE_NAME:$CI_COMMIT_TAG"
+    - ssh root@$SERVER_IP "echo "$CI_REGISTRY_PASSWORD" | docker login registry.gitlab.com --username $CI_REGISTRY_USER --password-stdin && docker pull $WEB_IMAGE_NAME:$CI_COMMIT_TAG && docker pull $NGINX_IMAGE_NAME:$CI_COMMIT_TAG"
     
     # copy the docker-compose files to host
     - scp ./docker-compose.yml root@$SERVER_IP:/stream-schedule/
