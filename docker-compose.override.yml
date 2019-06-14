@@ -4,8 +4,8 @@ services:
 
   web:
     environment:
-      - Mailgun__Domain=TODO
-      - Mailgun__ApiKey=TODO
+      - Gmail__Address=TODO
+      - Gmail__AppPassword=TODO
     volumes:
       - ./TechCalendar.Web/Data/:/app/Data/
 
