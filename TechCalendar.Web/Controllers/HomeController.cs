@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TechCalendar.Web.Models;
 using Microsoft.Extensions.Configuration;
 using TechCalendar.Web.Persistence;
-using Microsoft.EntityFrameworkCore;
-using TechCalendar.Web.Util;
 using TechCalendar.Web.Handler.Event;
 
 namespace TechCalendar.Web.Controllers
@@ -41,13 +36,15 @@ namespace TechCalendar.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> SubmitEvent([FromForm] EventSubmission submission)
         {
-            var mailgunDomain = _configuration["Mailgun:Domain"];
-            var mailgunApiKey = _configuration["Mailgun:ApiKey"];
+            var mailgunDomain = _configuration["Gmail:Address"];
+            var mailgunApiKey = _configuration["Gmail:AppPassword"];
 
             var handler = new EventSubmissionHandler(mailgunDomain, mailgunApiKey);
             await handler.HandleAsync(submission);
 
-            return RedirectToAction("Index", "Home");
+            TempData["SubmitEvent"] = true;
+
+            return View("Index");
         }
 
         public IActionResult Privacy()

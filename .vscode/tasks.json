@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/TechCalendar.Api/TechCalendar.Api.csproj"
+                "${workspaceFolder}/TechCalendar.Web/TechCalendar.Web.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -17,7 +17,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/TechCalendar.Api/TechCalendar.Api.csproj"
+                "${workspaceFolder}/TechCalendar.Web/TechCalendar.Web.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -28,7 +28,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/TechCalendar.Api/TechCalendar.Api.csproj"
+                "${workspaceFolder}/TechCalendar.Web/TechCalendar.Web.csproj"
             ],
             "problemMatcher": "$tsc"
         }
