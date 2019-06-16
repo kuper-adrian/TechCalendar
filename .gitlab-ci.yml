@@ -48,7 +48,7 @@ test:
   stage: test
   when: always
   script:
-    - dotnet test
+    - dotnet test -c Release
 
 deploy:
   stage: deploy
