@@ -1,4 +1,8 @@
-bin/
-obj/
+*/bin/
+*/obj/
+
+*/node_modules/
+*/wwwroot/lib/
+*/wwwroot/dist/
 
 *.pem
