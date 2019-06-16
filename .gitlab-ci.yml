@@ -41,8 +41,8 @@ build:
   script:
     - dotnet restore
     - cd ./TechCalendar.Web && npm install
-    - cd ./TechCalendar.Web && npm run prod
-    - dotnet publish -c Release
+    - npm run prod
+    - cd .. && dotnet publish -c Release
 
 test:
   stage: test
