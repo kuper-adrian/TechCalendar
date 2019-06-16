@@ -35,8 +35,13 @@ cache:
 build:
   stage: build
   when: always
+  before_script:
+    - apk add nodejs
+    - apk add npm
   script:
     - dotnet restore
+    - cd ./TechCalendar.Web && npm install
+    - cd ./TechCalendar.Web && npm run prod
     - dotnet publish -c Release
 
 test:
