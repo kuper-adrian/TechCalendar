@@ -5,9 +5,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --config webpack.config.js --watch --progress --profile",
+    "debug": "webpack --mode development --config webpack.config.js --watch --progress --profile",
+    "start": "webpack --mode production --config webpack.config.js --watch --progress --profile",
     "build": "webpack --mode development --config webpack.config.js --progress --profile",
-    "prod": "webpack --env.NODE_ENV=production --config webpack.config.js --progress"
+    "prod": "webpack --mode production --env.NODE_ENV=production --config webpack.config.js --progress"
   },
   "dependencies": {
     "@fullcalendar/core": "4.2.0",
