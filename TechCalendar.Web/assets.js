@@ -5,7 +5,15 @@ const JS = [
     to: 'bootstrap/',
   },
   {
+    from: 'bootstrap/dist/js/bootstrap.min.js.map',
+    to: 'bootstrap/',
+  },
+  {
     from: 'bootstrap/dist/js/bootstrap.bundle.min.js',
+    to: 'bootstrap/',
+  },
+  {
+    from: 'bootstrap/dist/js/bootstrap.bundle.min.js.map',
     to: 'bootstrap/',
   },
 
@@ -42,6 +50,10 @@ const CSS = [
   // bootstrap
   {
     from: 'bootstrap/dist/css/bootstrap.min.css',
+    to: 'bootstrap/',
+  },
+  {
+    from: 'bootstrap/dist/css/bootstrap.min.css.map',
     to: 'bootstrap/',
   },
   
