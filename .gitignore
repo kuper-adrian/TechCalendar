@@ -1,5 +1,9 @@
 bin/
 obj/
+node_modules/
+
+**/wwwroot/lib/
+**/wwwroot/dist/
 
 *.db
 *.pem
